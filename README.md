@@ -32,7 +32,7 @@ $ xjsonl data.csv
 ["foo","bar"]
 ["bar","zoo"]
 
-$ printf "foo,bar\nbar,zoo" | xjsonl -keys a,b
+$ printf 'foo,bar\nbar,zoo' | xjsonl -keys a,b
 {"a":"foo","b":"bar"}
 {"a":"bar","b":"zoo"}
 ```
