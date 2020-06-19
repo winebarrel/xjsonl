@@ -11,7 +11,7 @@ var ReadLineBufSize = 4096
 
 func EachJsonLine(file io.Reader, sep string, keys []string, cb func(string)) error {
 	reader := bufio.NewReader(file)
-	serializer := NewSerializer(keys)
+	serializer := newSerializer(keys)
 
 	for {
 		line, err := readLine(reader)
@@ -50,7 +50,7 @@ func readLine(reader *bufio.Reader) (string, error) {
 	return string(buf), err
 }
 
-func NewSerializer(keys []string) (serializer func([]string) string) {
+func newSerializer(keys []string) (serializer func([]string) string) {
 	if len(keys) == 0 {
 		serializer = func(cols []string) string {
 			vals := make([]string, len(cols))
