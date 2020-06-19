@@ -18,9 +18,9 @@ func main() {
 		log.Fatal(err)
 	}
 
-	defer flags.File.Close()
+	defer flags.file.Close()
 
-	err = xjsonl.EachJsonLine(flags.File, flags.Sep, flags.Keys, func(line string) {
+	err = xjsonl.EachJsonLine(flags.file, flags.sep, flags.keys, func(line string) {
 		fmt.Println(line)
 	})
 
