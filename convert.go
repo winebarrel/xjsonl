@@ -12,6 +12,7 @@ var ReadLineBufSize = 4096
 
 func EachJsonLine(file io.Reader, sep string, keys []string, cb func(string)) error {
 	reader := bufio.NewReader(file)
+	split := newSplitter(sep)
 	serialize := newSerializer(keys)
 
 	for {
@@ -23,7 +24,7 @@ func EachJsonLine(file io.Reader, sep string, keys []string, cb func(string)) er
 			return err
 		}
 
-		cols := strings.Split(line, sep)
+		cols := split(line)
 		json := serialize(cols)
 		cb(json)
 	}
@@ -102,4 +103,18 @@ func newMarshaller() func(string) string {
 		_ = encoder.Encode(s)
 		return strings.TrimRight(buf.String(), "\n")
 	}
+}
+
+func newSplitter(sep string) (splitter func(string) []string) {
+	if sep == "" {
+		splitter = func(s string) []string {
+			return []string{s}
+		}
+	} else {
+		splitter = func(s string) []string {
+			return strings.Split(s, sep)
+		}
+	}
+
+	return
 }

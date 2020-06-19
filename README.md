@@ -5,11 +5,11 @@ xjsonl is a tool to convert xSV to JSON Lines.
 ## Usage
 
 ```
-Usage: ./xjsonl
+Usage of ./xjsonl:
   -keys string
     	JSON object keys
   -sep string
-    	line separator (default ",")
+    	line separator. not split if empty (default ",")
   -version
     	Print version and exit
 ```
@@ -22,6 +22,10 @@ $ printf "foo,bar\nbar,zoo" | xjsonl
 $ printf "foo\tbar\nbar\tzoo" | xjsonl -sep '\t'
 ["foo","bar"]
 ["bar","zoo"]
+
+$ printf "foo,bar\nbar,zoo" | xjsonl -sep ""
+["foo,bar"]
+["bar,zoo"]
 
 $ printf "foo,bar\nbar,zoo" > data.csv
 $ xjsonl data.csv

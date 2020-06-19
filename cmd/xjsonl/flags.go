@@ -18,7 +18,7 @@ type flags struct {
 
 func parseArgs() (f *flags, err error) {
 	f = &flags{}
-	flag.StringVar(&f.sep, "sep", ",", "line separator")
+	flag.StringVar(&f.sep, "sep", ",", "line separator. not split if empty")
 	keys := flag.String("keys", "", "JSON object keys")
 	argVersion := flag.Bool("version", false, "Print version and exit")
 	flag.Parse()
@@ -37,10 +37,6 @@ func parseArgs() (f *flags, err error) {
 
 	if *argVersion {
 		printVersionAndEixt()
-	}
-
-	if f.sep == "" {
-		printErrorAndExit("'-sep' is required")
 	}
 
 	f.sep = strings.Replace(f.sep, "\\t", "\t", -1)
@@ -63,7 +59,7 @@ func printVersionAndEixt() {
 	os.Exit(0)
 }
 
-func printErrorAndExit(msg string) {
-	fmt.Fprintln(os.Stderr, msg)
-	os.Exit(1)
-}
+// func printErrorAndExit(msg string) {
+// 	fmt.Fprintln(os.Stderr, msg)
+// 	os.Exit(1)
+// }
