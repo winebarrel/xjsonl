@@ -1,0 +1,5 @@
+/xjsonl
+*.gz
+*.sha1sum
+*.csv
+*.tsv
