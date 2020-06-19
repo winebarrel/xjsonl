@@ -2,6 +2,7 @@ package xjsonl
 
 import (
 	"bufio"
+	"bytes"
 	"encoding/json"
 	"io"
 	"strings"
@@ -51,13 +52,14 @@ func readLine(reader *bufio.Reader) (string, error) {
 }
 
 func newSerializer(keys []string) (serializer func([]string) string) {
+	marshal := newMarshaller()
+
 	if len(keys) == 0 {
 		serializer = func(cols []string) string {
 			vals := make([]string, len(cols))
 
 			for i, c := range cols {
-				val, _ := json.Marshal(c)
-				vals[i] = string(val)
+				vals[i] = marshal(c)
 			}
 
 			return "[" + strings.Join(vals, ",") + "]"
@@ -67,8 +69,7 @@ func newSerializer(keys []string) (serializer func([]string) string) {
 		jsonKeys := make([]string, keysLen)
 
 		for i, k := range keys {
-			key, _ := json.Marshal(k)
-			jsonKeys[i] = string(key)
+			jsonKeys[i] = marshal(k)
 		}
 
 		serializer = func(cols []string) string {
@@ -81,8 +82,7 @@ func newSerializer(keys []string) (serializer func([]string) string) {
 			keyVals := make([]string, n)
 
 			for i := 0; i < n; i++ {
-				val, _ := json.Marshal(cols[i])
-				keyVals[i] = jsonKeys[i] + ":" + string(val)
+				keyVals[i] = jsonKeys[i] + ":" + marshal(cols[i])
 			}
 
 			return "{" + strings.Join(keyVals, ",") + "}"
@@ -90,4 +90,16 @@ func newSerializer(keys []string) (serializer func([]string) string) {
 	}
 
 	return
+}
+
+func newMarshaller() func(string) string {
+	buf := &bytes.Buffer{}
+	encoder := json.NewEncoder(buf)
+	encoder.SetEscapeHTML(false)
+
+	return func(s string) string {
+		defer buf.Reset()
+		_ = encoder.Encode(s)
+		return strings.TrimRight(buf.String(), "\n")
+	}
 }
