@@ -1,6 +1,6 @@
 # xjsonl
 
-xjsonl is a tool to convert xVS to JSON Lines.
+xjsonl is a tool to convert xSV to JSON Lines.
 
 ## Usage
 
