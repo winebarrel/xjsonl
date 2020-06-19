@@ -19,8 +19,8 @@ type flags struct {
 func parseArgs() (f *flags, err error) {
 	f = &flags{}
 	flag.StringVar(&f.sep, "sep", ",", "line separator. not split if empty")
-	keys := flag.String("keys", "", "JSON object keys")
-	argVersion := flag.Bool("version", false, "Print version and exit")
+	keys := flag.String("keys", "", "json object keys")
+	argVersion := flag.Bool("version", false, "print version and exit")
 	flag.Parse()
 
 	if flag.NArg() == 0 {

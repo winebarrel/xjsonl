@@ -7,11 +7,11 @@ xjsonl is a tool to convert xSV to JSON Lines.
 ```
 Usage of ./xjsonl:
   -keys string
-    	JSON object keys
+    	json object keys
   -sep string
     	line separator. not split if empty (default ",")
   -version
-    	Print version and exit
+    	print version and exit
 ```
 
 ```
