@@ -15,19 +15,19 @@ Usage of ./xjsonl:
 ```
 
 ```
-$ printf "foo,bar\nbar,zoo" | xjsonl
+$ printf 'foo,bar\nbar,zoo' | xjsonl
 ["foo","bar"]
 ["bar","zoo"]
 
-$ printf "foo\tbar\nbar\tzoo" | xjsonl -sep '\t'
+$ printf 'foo\tbar\nbar\tzoo' | xjsonl -sep '\t'
 ["foo","bar"]
 ["bar","zoo"]
 
-$ printf "foo,bar\nbar,zoo" | xjsonl -sep ""
+$ printf 'foo,bar\nbar,zoo' | xjsonl -sep ''
 ["foo,bar"]
 ["bar,zoo"]
 
-$ printf "foo,bar\nbar,zoo" > data.csv
+$ printf 'foo,bar\nbar,zoo' > data.csv
 $ xjsonl data.csv
 ["foo","bar"]
 ["bar","zoo"]
