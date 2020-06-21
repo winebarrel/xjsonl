@@ -2,6 +2,8 @@
 
 xjsonl is a tool to convert xSV to JSON Lines.
 
+[![Build Status](https://travis-ci.org/winebarrel/xjsonl.svg?branch=master)](https://travis-ci.org/winebarrel/xjsonl)
+
 ## Usage
 
 ```
