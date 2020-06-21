@@ -8,14 +8,14 @@ xjsonl is a tool to convert xSV to JSON Lines.
 
 ```
 Usage of xjsonl:
+  -header
+    	consider the first line as a header
   -keys string
     	json object keys
   -sep string
     	line separator. not split if empty (default ",")
   -version
     	print version and exit
-  -with-header
-    	consider the first line as a header
 ```
 
 ```
@@ -40,7 +40,7 @@ $ printf 'foo,bar\nbar,zoo' | xjsonl -keys a,b
 {"a":"foo","b":"bar"}
 {"a":"bar","b":"zoo"}
 
-$ printf "foo,bar\nzoo,baz\n1,2" | xjsonl -with-header
+$ printf "foo,bar\nzoo,baz\n1,2" | xjsonl -header
 {"foo":"zoo","bar":"baz"}
 {"foo":"1","bar":"2"}
 ```
