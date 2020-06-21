@@ -20,7 +20,7 @@ func main() {
 
 	defer flags.file.Close()
 
-	err = xjsonl.EachJsonLine(flags.file, flags.sep, flags.keys, func(line string) {
+	err = xjsonl.EachJsonLine(flags.file, flags.sep, flags.keys, flags.withHeader, func(line string) {
 		fmt.Println(line)
 	})
 

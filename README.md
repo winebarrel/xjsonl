@@ -12,6 +12,8 @@ Usage of ./xjsonl:
     	line separator. not split if empty (default ",")
   -version
     	print version and exit
+  -with-header
+    	consider the first line as a header
 ```
 
 ```
@@ -35,4 +37,8 @@ $ xjsonl data.csv
 $ printf 'foo,bar\nbar,zoo' | xjsonl -keys a,b
 {"a":"foo","b":"bar"}
 {"a":"bar","b":"zoo"}
+
+$ printf "foo,bar\nzoo,baz\n1,2" | xjsonl -with-header
+{"foo":"zoo","bar":"baz"}
+{"foo":"1","bar":"2"}
 ```

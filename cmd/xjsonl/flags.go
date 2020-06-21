@@ -11,15 +11,17 @@ import (
 var version string
 
 type flags struct {
-	sep  string
-	keys []string
-	file io.ReadCloser
+	sep        string
+	keys       []string
+	withHeader bool
+	file       io.ReadCloser
 }
 
 func parseArgs() (f *flags, err error) {
 	f = &flags{}
 	flag.StringVar(&f.sep, "sep", ",", "line separator. not split if empty")
 	keys := flag.String("keys", "", "json object keys")
+	flag.BoolVar(&f.withHeader, "with-header", false, "consider the first line as a header")
 	argVersion := flag.Bool("version", false, "print version and exit")
 	flag.Parse()
 
