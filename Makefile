@@ -7,8 +7,8 @@ GOARCH  := $(shell go env GOARCH)
 all: build
 
 .PHONY: build
-build:
-	go build -ldflags "-X main.version=$(VERSION)" ./cmd/xjsonl
+build: vet test
+	go build -o xjsonl -ldflags "-X main.version=$(VERSION)" ./cmd/xjsonl
 
 .PHONY: package
 package: clean build
@@ -18,3 +18,11 @@ package: clean build
 .PHONY: clean
 clean:
 	rm -f xjsonl
+
+.PHONY: vet
+vet:
+	go vet
+
+.PHONY: test
+test:
+	go test
