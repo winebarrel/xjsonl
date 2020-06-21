@@ -4,10 +4,10 @@ GOOS    := $(shell go env GOOS)
 GOARCH  := $(shell go env GOARCH)
 
 .PHONY: all
-all: build
+all: vet test build
 
 .PHONY: build
-build: vet test
+build:
 	go build -o xjsonl -ldflags "-X main.version=$(VERSION)" ./cmd/xjsonl
 
 .PHONY: package
