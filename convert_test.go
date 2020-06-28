@@ -82,3 +82,18 @@ func TestEachJsonLineWithHeader(t *testing.T) {
 {"foo":"1","bar":"2"}
 `, stdout.String())
 }
+
+func TestEachJsonLineWithTabSeparatedHeader(t *testing.T) {
+	assert := assert.New(t)
+
+	stdin := bytes.NewBufferString("foo\tbar\nzoo\tbaz\n1\t2")
+	stdout := &bytes.Buffer{}
+
+	_ = EachJsonLine(stdin, "\t", []string{}, true, func(line string) {
+		fmt.Fprintln(stdout, line)
+	})
+
+	assert.Equal(`{"foo":"zoo","bar":"baz"}
+{"foo":"1","bar":"2"}
+`, stdout.String())
+}

@@ -12,6 +12,7 @@ var ReadLineBufSize = 4096
 
 func EachJsonLine(file io.Reader, sep string, keys []string, withHeader bool, cb func(string)) error {
 	reader := bufio.NewReader(file)
+	split := newSplitter(sep)
 
 	if withHeader {
 		line, err := readLine(reader)
@@ -22,10 +23,9 @@ func EachJsonLine(file io.Reader, sep string, keys []string, withHeader bool, cb
 			return err
 		}
 
-		keys = strings.Split(line, sep)
+		keys = split(line)
 	}
 
-	split := newSplitter(sep)
 	serialize := newSerializer(keys)
 
 	for {
